@@ -2,11 +2,11 @@ import supertest from 'supertest';
 import app from '../index';
 import { promises as fs } from 'fs';
 import path from 'path';
-import File from '../file';
+import fileManagment from '../fileManagment';
 
 const request: supertest.SuperTest<supertest.Test> = supertest(app);
 
-describe('Test responses from endpoints', (): void => {
+describe('Test endpoints', (): void => {
   describe('endpoint: /', (): void => {
     it('gets /', async (): Promise<void> => {
       const response: supertest.Response = await request.get('/');
@@ -15,52 +15,22 @@ describe('Test responses from endpoints', (): void => {
     });
   });
 
-  describe('endpoint: /api/images', (): void => {
-    it('gets /api/images?filename=fjord (valid args)', async (): Promise<void> => {
-      const response: supertest.Response = await request.get(
-        '/api/images?filename=fjord'
-      );
+ 
 
-      expect(response.status).toBe(200);
-    });
-
-    it('gets /api/images?filename=fjord&width=199&height=199 (valid args)', async (): Promise<void> => {
-      const response: supertest.Response = await request.get(
-        '/api/images?filename=fjord&width=199&height=199'
-      );
-
-      expect(response.status).toBe(200);
-    });
-
-    it('gets /api/images?filename=fjord&width=-200&height=200 (invalid args)', async (): Promise<void> => {
-      const response: supertest.Response = await request.get(
-        '/api/images?filename=fjord&width=-200&height=200'
-      );
-
-      expect(response.status).toBe(200);
-    });
-
-    it('gets /api/images (no arguments)', async (): Promise<void> => {
-      const response: supertest.Response = await request.get('/api/images');
-
-      expect(response.status).toBe(200);
-    });
-  });
-
-  describe('endpoint: /foo', (): void => {
-    it('returns 404 for invalid endpoint', async (): Promise<void> => {
-      const response: supertest.Response = await request.get('/foo');
+  describe('endpoint: /test', (): void => {
+    it('returns 404', async (): Promise<void> => {
+      const response: supertest.Response = await request.get('/test');
 
       expect(response.status).toBe(404);
     });
   });
 });
 
-// Erase test file. Test should not run on productive system to avoid cache loss
+// Erase test fileManagment. Test should not run on productive system to avoid cache loss
 afterAll(async (): Promise<void> => {
   const resizedImagePath: string = path.resolve(
-    File.imageThumbPath,
-    'fjord-199x199.jpg'
+    fileManagment.editedImage,
+    'encenadaport-180x180.jpg'
   );
 
   try {
@@ -69,4 +39,36 @@ afterAll(async (): Promise<void> => {
   } catch {
     // intentionally left blank
   }
+});
+
+describe('endpoint: /api/images', (): void => {
+  it('valid args', async (): Promise<void> => {
+    const response: supertest.Response = await request.get(
+      '/api/images?fileManagmentname=encenadaport'
+    );
+
+    expect(response.status).toBe(200);
+  });
+
+  it('valid args', async (): Promise<void> => {
+    const response: supertest.Response = await request.get(
+      '/api/images?fileManagmentname=encenadaport&width=180&height=180'
+    );
+
+    expect(response.status).toBe(200);
+  });
+
+  it('invalid args', async (): Promise<void> => {
+    const response: supertest.Response = await request.get(
+      '/api/images?fileManagmentname=encenadaport&width=-250&height=250'
+    );
+
+    expect(response.status).toBe(200);
+  });
+
+  it('no arguments', async (): Promise<void> => {
+    const response: supertest.Response = await request.get('/api/images');
+
+    expect(response.status).toBe(200);
+  });
 });

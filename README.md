@@ -11,9 +11,7 @@ The server will listen on port 8080:
 http://localhost:8080/
 
 #### Example 
-http://localhost:8080/api/images?filename=fjord&width=200&height=200
-Will scale the fjord image to 200 by 200 pixels and store the resulting image.
-On subsequent calls will serve the resized image instead of resizing the
-original again.
+http://localhost:8080/api/images?imagename=encenadaport&width=190&height=190
+
 
 

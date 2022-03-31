@@ -12,26 +12,6 @@ interface ImageDetails {
 export default class fileManagment {
 
   static imagePath = path.resolve(__dirname, '../content/images');
-  static editedImage = path.resolve(__dirname, '../content/SecondFolder');
-
-  
-
-  static async isSecondFolderAvailable(variable: ImageDetails): Promise<boolean> {
-    if (!variable.imageName || !variable.width || !variable.height) {
-      return false; 
-    }
-    console.log(fileManagment.editedImage);
-    const filePath: string = path.resolve(
-      fileManagment.editedImage,
-      `${variable.imageName}-${variable.width}x${variable.height}.jpg`
-    );
-    try {
-      await fs.access(filePath);
-      return true;
-    } catch {
-      return false;
-    }
-  }
 
   static async checkImageAvailability(imageName?: string): Promise<string[]> {
     try {
@@ -43,6 +23,7 @@ export default class fileManagment {
     }
   }
 
+  static editedImage = path.resolve(__dirname, '../content/SecondFolder');
   static async createEditedImage(imageName: string | undefined, width: string | undefined, height: string | undefined): Promise<null | string> {
     if (!imageName || !width || !height) {
       return null;
@@ -90,19 +71,17 @@ export default class fileManagment {
   }
   }
 
-  static async getImagePath(imageName: string | undefined, width: string | undefined, height: string | undefined): Promise<null | string> {
+  static async getImagePath(imageName: string | undefined,
+    width: string | undefined, height: string | undefined)
+    : Promise<null | string> {
     if (!imageName) {
       return null;
     }
 
     
-    const filePath: string =
-    width && height
-        ? path.resolve(
-          fileManagment.editedImage,
-            `${imageName}-${width}x${height}.jpg`
-          )
-        : path.resolve(fileManagment.imagePath, `${imageName}.jpg`);
+    const filePath: string = width && height ? path.resolve(
+      fileManagment.editedImage,`${imageName}-${width}x${height}.jpg`
+    ): path.resolve(fileManagment.imagePath, `${imageName}.jpg`);
 
     
     try {
@@ -110,14 +89,6 @@ export default class fileManagment {
       return filePath;
     } catch {
       return null;
-    }
-  }
-  static  createSecondFolder(){
-    try {
-       fs.access(fileManagment.editedImage);
-      
-    } catch {
-      fs.mkdir(fileManagment.editedImage);
     }
   }
 }

@@ -26,7 +26,6 @@ describe('Test endpoints', (): void => {
   });
 });
 
-// Erase test fileManagment. Test should not run on productive system to avoid cache loss
 afterAll(async (): Promise<void> => {
   const resizedImagePath: string = path.resolve(
     fileManagment.editedImage,
@@ -37,7 +36,6 @@ afterAll(async (): Promise<void> => {
     await fs.access(resizedImagePath);
     fs.unlink(resizedImagePath);
   } catch {
-    // intentionally left blank
   }
 });
 

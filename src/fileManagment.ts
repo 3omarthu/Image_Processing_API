@@ -37,7 +37,7 @@ export default class fileManagment {
 
     const filePathSecondFolder: string = path.resolve(
       fileManagment.editedImage,
-      `${imageName}-${width}x${height}.jpg`
+      `${imageName}-${width}-${height}.jpg`
     );
     console.log(filePathSecondFolder);
 
@@ -80,7 +80,7 @@ export default class fileManagment {
 
     
     const filePath: string = width && height ? path.resolve(
-      fileManagment.editedImage,`${imageName}-${width}x${height}.jpg`
+      fileManagment.editedImage,`${imageName}-${width}-${height}.jpg`
     ): path.resolve(fileManagment.imagePath, `${imageName}.jpg`);
 
     

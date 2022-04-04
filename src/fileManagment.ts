@@ -28,7 +28,6 @@ export default class fileManagment {
     if (!imageName || !width || !height) {
       return null;
     }
-    console.log("I am sharp");
     const filePathFull: string = path.resolve(
       fileManagment.imagePath,
       `${imageName}.jpg`
@@ -66,8 +65,7 @@ export default class fileManagment {
       .toFile(newFilePath);
     return null;
   } catch {   
-    console.log(newFilePath);
-    return 'somthing was wrong.';
+    return 'Image can not be processed.';
   }
   }
 
@@ -91,5 +89,15 @@ export default class fileManagment {
       return null;
     }
   }
+
+  static createSecondfolder(): void {
+    try {
+       fs.access(fileManagment.editedImage);
+      // Path already available
+    } catch {
+      fs.mkdir(fileManagment.editedImage);
+    }
+  }
 }
+
 

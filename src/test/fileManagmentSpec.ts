@@ -12,7 +12,7 @@ describe('Test image processing', (): void => {
     );
     const resizedImagePath: string = path.resolve(
       fileManagment.editedImage,
-      `encenadaport-120x120.jpg`
+      `encenadaport-120-120.jpg`
     );
     let errorfileManagment: null | string = '';
     await fs.access(resizedImagePath);
@@ -24,7 +24,7 @@ describe('Test image processing', (): void => {
 afterAll(async (): Promise<void> => {
   const resizedImagePath: string = path.resolve(
     fileManagment.editedImage,
-    'encenadaport-120x120.jpg'
+    'encenadaport-120-120.jpg'
   );
     await fs.access(resizedImagePath);
     fs.unlink(resizedImagePath);

@@ -12,9 +12,9 @@ const validator = async (details: ImageDetails): Promise<null | string> => {
   if (!(await FileManagment.checkImageAvailability(details.imagename))) {
     return `The image name is invalid`;
   }
-    
 
-  if ((!details.width && !details.height) || Number.isNaN(details.width) || Number.isNaN(details.height) ) {
+  if (!details.width || !details.height || Number.isNaN(details.width) || Number.isNaN(details.height) 
+  || Number(details.height) <= 0 || Number(details.width) <= 0) {
     return "the width or the height is invalid.";; 
   }
   return null;

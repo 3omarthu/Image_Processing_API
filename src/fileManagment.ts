@@ -53,6 +53,23 @@ export default class fileManagment {
     );
   }
 
+  static async isImageAvailable(imageName: string | undefined, width: string | undefined, height: string | undefined): Promise< boolean> {
+    if (!imageName || !width || !height) {
+      return false;
+    }
+    const filePathSecondFolder: string = path.resolve(
+      fileManagment.editedImage,
+      `${imageName}-${width}-${height}.jpg`
+    );
+    try{
+      fs.existsSync(filePathSecondFolder) 
+        return true;
+     
+    } catch {
+      return false;
+    }
+  }
+
   static processingImage = async (
     filePath: string, newFilePath: string, width: number,
     height: number
@@ -69,26 +86,26 @@ export default class fileManagment {
   }
   }
 
-  static async getImagePath(imageName: string | undefined,
-    width: string | undefined, height: string | undefined)
-    : Promise<null | string> {
-    if (!imageName) {
-      return null;
-    }
+  // static async getImagePath(imageName: string | undefined,
+  //   width: string | undefined, height: string | undefined)
+  //   : Promise<null | string> {
+  //   if (!imageName) {
+  //     return null;
+  //   }
 
     
-    const filePath: string = width && height ? path.resolve(
-      fileManagment.editedImage,`${imageName}-${width}-${height}.jpg`
-    ): path.resolve(fileManagment.imagePath, `${imageName}.jpg`);
+  //   const filePath: string = width && height ? path.resolve(
+  //     fileManagment.editedImage,`${imageName}-${width}-${height}.jpg`
+  //   ): path.resolve(fileManagment.imagePath, `${imageName}.jpg`);
 
     
-    try {
-      await fs.access(filePath);
-      return filePath;
-    } catch {
-      return null;
-    }
-  }
+  //   try {
+  //     await fs.access(filePath);
+  //     return filePath;
+  //   } catch {
+  //     return null;
+  //   }
+  // }
 
   static async createSecondFolder():  Promise<void> {
     try {

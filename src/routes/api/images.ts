@@ -13,8 +13,12 @@ const validator = async (details: ImageDetails): Promise<null | string> => {
     return `The image name is invalid`;
   }
 
-  if (!details.width || !details.height || Number.isNaN(details.width) || Number.isNaN(details.height) 
-  || Number(details.height) <= 0 || Number(details.width) <= 0) {
+  
+  const width: number = parseInt(details.width || '');
+  const height: number = parseInt(details.height || '');
+
+  if (!details.width || !details.height || Number.isNaN(width) || Number.isNaN(height) 
+  || width <= 0 || height <= 0) {
     return "the width or the height is invalid.";; 
   }
   return null;
@@ -40,21 +44,27 @@ images.get(
     console.log(width);
     console.log(height);
 
-    let editedImage = await FileManagment.createEditedImage(imageName, width, height);
-    console.log("I am here");
-    if (editedImage) {
-      res.send(editedImage);
+    let isImageAvailable = await FileManagment.isImageAvailable(imageName, width, height);
+    if(isImageAvailable){
+      res.send(isImageAvailable);
       return;
+    }else{
+      let editedImage = await FileManagment.createEditedImage(imageName, width, height);
+      console.log("I am here");
+      if (editedImage) {
+        res.send(editedImage);
+        return;
+      }
     }
-    console.log(height);
+    
 
-    const Imagepath: string | null = await FileManagment.getImagePath(imageName, width, height);
-    console.log(Imagepath);
-    if (Imagepath) {
-      res.sendFile(Imagepath);
-    } else {
-      res.send('An error has occured');
-    }
+    // const Imagepath: string | null = await FileManagment.getImagePath(imageName, width, height);
+    // console.log(Imagepath);
+    // if (Imagepath) {
+    //   res.sendFile(Imagepath);
+    // } else {
+    //   res.send('An error has occured');
+    // }
   }
 );
 

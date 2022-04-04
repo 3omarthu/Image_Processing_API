@@ -56,15 +56,6 @@ images.get(
         return;
       }
     }
-    
-
-    // const Imagepath: string | null = await FileManagment.getImagePath(imageName, width, height);
-    // console.log(Imagepath);
-    // if (Imagepath) {
-    //   res.sendFile(Imagepath);
-    // } else {
-    //   res.send('An error has occured');
-    // }
   }
 );
 

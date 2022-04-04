@@ -90,9 +90,9 @@ export default class fileManagment {
     }
   }
 
-  static createSecondfolder(): void {
+  static async createSecondFolder():  Promise<void> {
     try {
-       fs.access(fileManagment.editedImage);
+      await fs.access(fileManagment.editedImage);
       // Path already available
     } catch {
       fs.mkdir(fileManagment.editedImage);

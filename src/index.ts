@@ -9,7 +9,7 @@ const port: number = 8080;
 app.use(routes);
 
 app.listen(port, async (): Promise<void> => {
-    await fileManagment.createSecondfolder();
+    await fileManagment.createSecondFolder();
 });
 
 export default app;

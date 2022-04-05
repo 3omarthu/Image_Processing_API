@@ -62,7 +62,7 @@ export default class fileManagment {
       `${imageName}-${width}-${height}.jpg`
     );
     try{
-      fs.existsSync(filePathSecondFolder) 
+      fs.access(filePathSecondFolder) 
         return true;
      
     } catch {
@@ -86,26 +86,26 @@ export default class fileManagment {
   }
   }
 
-  // static async getImagePath(imageName: string | undefined,
-  //   width: string | undefined, height: string | undefined)
-  //   : Promise<null | string> {
-  //   if (!imageName) {
-  //     return null;
-  //   }
+  static async getImagePath(imageName: string | undefined,
+    width: string | undefined, height: string | undefined)
+    : Promise<null | string> {
+    if (!imageName) {
+      return null;
+    }
 
     
-  //   const filePath: string = width && height ? path.resolve(
-  //     fileManagment.editedImage,`${imageName}-${width}-${height}.jpg`
-  //   ): path.resolve(fileManagment.imagePath, `${imageName}.jpg`);
+    const filePath: string = width && height ? path.resolve(
+      fileManagment.editedImage,`${imageName}-${width}-${height}.jpg`
+    ): path.resolve(fileManagment.imagePath, `${imageName}.jpg`);
 
     
-  //   try {
-  //     await fs.access(filePath);
-  //     return filePath;
-  //   } catch {
-  //     return null;
-  //   }
-  // }
+    try {
+      await fs.access(filePath);
+      return filePath;
+    } catch {
+      return null;
+    }
+  }
 
   static async createSecondFolder():  Promise<void> {
     try {

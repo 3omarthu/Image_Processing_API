@@ -10,8 +10,8 @@
     "test": "npm run build && npm run jasmine",
     "start": "tsc && node dist/index.js",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint --fix  . --ext .ts"
   },
   "keywords": [],
   "author": "",

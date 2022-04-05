@@ -44,17 +44,25 @@ images.get(
     console.log(width);
     console.log(height);
 
-    let isImageAvailable = await FileManagment.isImageAvailable(imageName, width, height);
-    if(isImageAvailable){
-      res.send(isImageAvailable);
-      return;
-    }else{
+    // let isImageAvailable = await FileManagment.isImageAvailable(imageName, width, height);
+    // if(isImageAvailable){
+    //   res.send(isImageAvailable);
+    //   return;
+    // }else{
       let editedImage = await FileManagment.createEditedImage(imageName, width, height);
       console.log("I am here");
       if (editedImage) {
         res.send(editedImage);
         return;
-      }
+      // }
+    }
+
+    const Imagepath: string | null = await FileManagment.getImagePath(imageName, width, height);
+    console.log(Imagepath);
+    if (Imagepath) {
+      res.sendFile(Imagepath);
+    } else {
+      res.send('An error has occured');
     }
   }
 );

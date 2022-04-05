@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import app from '../index';
-import { promises as fs } from 'fs';
+import {promises as fs} from 'fs';
 import path from 'path';
 import fileManagment from '../fileManagment';
 
@@ -15,7 +15,6 @@ describe('Test endpoints', (): void => {
     });
   });
 
- 
 
   describe('endpoint: /test', (): void => {
     it('returns 404', async (): Promise<void> => {
@@ -28,8 +27,8 @@ describe('Test endpoints', (): void => {
 
 afterAll(async (): Promise<void> => {
   const resizedImagePath: string = path.resolve(
-    fileManagment.editedImage,
-    'encenadaport-180x180.jpg'
+      fileManagment.editedImage,
+      'encenadaport-180x180.jpg',
   );
 
   try {
@@ -42,7 +41,7 @@ afterAll(async (): Promise<void> => {
 describe('endpoint: /api/images', (): void => {
   it('valid args', async (): Promise<void> => {
     const response: supertest.Response = await request.get(
-      '/api/images?fileManagmentname=encenadaport'
+        '/api/images?fileManagmentname=encenadaport',
     );
 
     expect(response.status).toBe(200);
@@ -50,7 +49,7 @@ describe('endpoint: /api/images', (): void => {
 
   it('valid args', async (): Promise<void> => {
     const response: supertest.Response = await request.get(
-      '/api/images?fileManagmentname=encenadaport&width=180&height=180'
+        '/api/images?fileManagmentname=encenadaport&width=180&height=180',
     );
 
     expect(response.status).toBe(200);
@@ -58,7 +57,7 @@ describe('endpoint: /api/images', (): void => {
 
   it('invalid args', async (): Promise<void> => {
     const response: supertest.Response = await request.get(
-      '/api/images?fileManagmentname=encenadaport&width=-250&height=250'
+        '/api/images?fileManagmentname=encenadaport&width=-250&height=250',
     );
 
     expect(response.status).toBe(200);
